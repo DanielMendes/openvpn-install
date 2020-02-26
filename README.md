@@ -1,45 +1,45 @@
 # openvpn-install
 
-OpenVPN installer for Debian, Ubuntu, Fedora, CentOS and Arch Linux.
+Instalador OpenVPN para Debian, Ubuntu, Fedora, CentOS e Arch Linux.
 
-This script will let you setup your own secure VPN server in just a few seconds.
+Esse script permitirá que você configure seu próprio servidor VPN seguro em apenas alguns segundos.
 
-You can also check out [wireguard-install](https://github.com/angristan/wireguard-install), a simple installer for a simpler, safer, faster and more modern VPN protocol.
+Você também pode conferir [wireguard-install](https://github.com/angristan/wireguard-install), a simple installer for a simpler, safer, faster and more modern VPN protocol.
 
-## Usage
+## Uso
 
-First, get the script and make it executable :
+Primeiro, obtenha o script e o torne executável:
 
 ```bash
 curl -O https://raw.githubusercontent.com/angristan/openvpn-install/master/openvpn-install.sh
 chmod +x openvpn-install.sh
 ```
 
-Then run it :
+Em seguida, execute-o:
 
 ```sh
 ./openvpn-install.sh
 ```
 
-You need to run the script as root and have the TUN module enabled.
+Você precisa executar o script como root e ter o módulo TUN ativado.
 
-The first time you run it, you'll have to follow the assistant and answer a few questions to setup your VPN server.
+Na primeira vez em que você o executar, será necessário seguir o assistente e responder algumas perguntas para configurar seu servidor VPN.
 
-When OpenVPN is installed, you can run the script again, and you will get the choice to :
+Quando o OpenVPN estiver instalado, você poderá executar o script novamente e poderá escolher:
 
-- Add a client
-- Remove a client
-- Uninstall OpenVPN
+- Adicionar um cliente
+- Remover um cliente
+- Desinstalar OpenVPN
 
-In your home directory, you will have `.ovpn` files. These are the client configuration files. Download them from your server and connect using your favorite OpenVPN client.
+No seu diretório pessoal, você terá arquivos `.ovpn`. Esses são os arquivos de configuração do cliente. Faça o download do seu servidor e conecte-se usando seu cliente OpenVPN favorito.
 
-If you have any question, head to the [FAQ](#faq) first.
+Se você tiver alguma dúvida, vá primeiro ao [FAQ] (# faq).
 
-### Headless install
+### Instalação automatizada
 
-It's also possible to run the script headless, e.g. without waiting for user input, in an automated manner.
+Também é possível executar o script sem interação do usuário, por exemplo: sem esperar pela entrada do usuário. De maneira automatizada.
 
-Example usage:
+Exemplo de uso:
 ```bash
 AUTO_INSTALL=y ./openvpn-install.sh
 
@@ -49,9 +49,9 @@ export AUTO_INSTALL=y
 ./openvpn-install.sh
 ```
 
-A default set of variables will then be set, by passing the need for user input.
+Um conjunto padrão de variáveis ​​será então definido, passando a necessidade de entrada do usuário.
 
-If you want to customise your installation, you can export them or specify them on the same line, as shown above.
+Se você deseja personalizar sua instalação, pode exportá-los ou especificá-los na mesma linha, como mostrado acima.
 
 - `APPROVE_INSTALL=y`
 - `APPROVE_IP=y`
@@ -64,17 +64,17 @@ If you want to customise your installation, you can export them or specify them 
 - `CLIENT=clientname`
 - `PASS=1`
 
-If the server is behind NAT, you can specify its endpoint with the `ENDPOINT` variable. If the endpoint is the public IP address which it is behind, you can use `ENDPOINT=$(curl -4 ifconfig.co)` (the script will default to this). The endpoint can be an IPv4 or a domain.
+Se o servidor estiver atrás do NAT, você poderá especificar seu ponto final com a variável `ENDPOINT`. Se o ponto final for o endereço IP público atrás do qual está localizado, você poderá usar `ENDPOINT = $ (curl -4 ifconfig.co)` (o script será o padrão para isso). O terminal pode ser um IPv4 ou um domínio.
 
-Other variables can be set depending on your choice (encryption, compression). You can search for them in the `installQuestions()` function of the script.
+Outras variáveis podem ser definidas dependendo da sua escolha (criptografia, compactação). Você pode procurá-los na função `installQuestions ()` do script.
 
-Password-protected clients are not supported by the headless installation method since user input is expected by Easy-RSA.
+Os clientes protegidos por senha não são suportados pelo método de instalação sem cabeçalho, pois a entrada do usuário é esperada pelo Easy-RSA.
 
-### Headless User Addition
+### Adicionar usuário automaticamente
 
-It's also possible to automate the addition of a new user. Here, the key is to provide the (string) value of the `MENU_OPTION` variable along with the remaining mandatory variables before invoking the script.
+Também é possível automatizar a adição de um novo usuário. Aqui, a chave é fornecer o valor (string) da variável `MENU_OPTION` junto com as variáveis obrigatórias restantes antes de chamar o script.
 
-The following Bash script adds a new user `foo` to an existing OpenVPN configuration
+O script Bash a seguir adiciona um novo usuário `foo` a uma configuração OpenVPN existente
 ```bash
 #!/bin/bash
 export MENU_OPTION="1"
@@ -85,25 +85,25 @@ export PASS="1"
 
 ## Features
 
-- Installs and configures a ready-to-use OpenVPN server
-- Iptables rules and forwarding managed in a seamless way
-- If needed, the script can cleanly remove OpenVPN, including configuration and iptables rules
-- Customisable encryption settings, enhanced default settings (see [Security and Encryption](#security-and-encryption) below)
-- OpenVPN 2.4 features, mainly encryption improvements (see [Security and Encryption](#security-and-encryption) below)
-- Variety of DNS resolvers to be pushed to the clients
-- Choice to use a self-hosted resolver with Unbound (supports already existing Unbound installations)
-- Choice between TCP and UDP
-- NATed IPv6 support
-- Compression disabled by default to prevent VORACLE. LZ4 (v1/v2) and LZ0 algorithms available otherwise.
-- Unprivileged mode: run as `nobody`/`nogroup`
-- Block DNS leaks on Windows 10
-- Randomised server certificate name
-- Choice to protect clients with a password (private key encryption)
-- Many other little things!
+- Instala e configura um servidor OpenVPN pronto para uso 
+- Regras e encaminhamento de iptables gerenciados de maneira integrada
+- Se necessário, o script pode remover claramente o OpenVPN, incluindo regras de configuração e iptables
+- Configurações de criptografia personalizáveis, configurações padrão aprimoradas (consulte [Segurança e criptografia] (#security-and-encryption) abaixo)
+- Recursos do OpenVPN 2.4, principalmente melhorias na criptografia (consulte [Segurança e criptografia] (#security-and-encryption) abaixo)
+- Variedade de resolvedores de DNS a serem enviados aos clientes
+- Escolha usar um resolvedor auto-hospedado com o Unbound (suporta instalações já existentes do Unbound)
+- Escolha entre TCP e UDP
+- Suporte IPv6 com NAT
+- Compactação desativada por padrão para impedir o VORACLE. Caso contrário, os algoritmos LZ4 (v1 / v2) e LZ0 estão disponíveis.
+- Modo não privilegiado: execute como `nobody` /` nogroup`
+- Bloqueie vazamentos de DNS no Windows 10
+- Nome aleatório do certificado do servidor
+- Escolha para proteger os clientes com uma senha (criptografia de chave privada)
+- Muitas outras coisinhas!
 
-## Compatibility
+## Compatibilidade
 
-The script supports these OS and architectures:
+O script suporta estes sistemas operacionais e arquiteturas:
 
 |                | i386 | amd64 | armhf | arm64 |
 | -------------- | ---- | ----- | ----- | ----- |
@@ -120,11 +120,11 @@ The script supports these OS and architectures:
 | Ubuntu 18.04   |  ❌  |  ✅  |   ✅  |   ✅  |
 | Ubuntu 19.04   |  ❌  |  ✅  |   ✅  |   ✅  |
 
-To be noted:
+A notar:
 
-- It should work on Debian 8+ and Ubuntu 16.04+. But versions not in the table above are not officially supported.
-- The script requires `systemd`.
-- The script is regularly tested against `amd64` only.
+- O script deve funcionar no Debian 8+ e no Ubuntu 16.04+. Mas versões que não estão na tabela acima não são oficialmente suportadas.
+- O script requer `systemd`.
+- O script é testado regularmente somente na arquitetura `amd64`.
 
 ## Fork
 
