@@ -1,4 +1,4 @@
-# openvpn-install
+# Instalação OpenVPN
 
 Instalador OpenVPN para Debian, Ubuntu, Fedora, CentOS e Arch Linux.
 
@@ -83,7 +83,7 @@ export PASS="1"
 ./openvpn-install.sh
 ```
 
-## Features
+## Recursos
 
 - Instala e configura um servidor OpenVPN pronto para uso 
 - Regras e encaminhamento de iptables gerenciados de maneira integrada
