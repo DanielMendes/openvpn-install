@@ -11,7 +11,7 @@ Você também pode conferir [wireguard-install](https://github.com/angristan/wir
 Primeiro, obtenha o script e o torne executável:
 
 ```bash
-curl -O https://raw.githubusercontent.com/angristan/openvpn-install/master/openvpn-install.sh
+curl -O https://raw.githubusercontent.com/DanielMendes/openvpn-install/master/openvpn-install.sh
 chmod +x openvpn-install.sh
 ```
 
